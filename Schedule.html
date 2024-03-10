@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Add Bootstrap CSS link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+Khojki&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="Schedule.css">
+  <title>Schedule</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md shadow fixed-top bg-light" id="nav">
+    <div class="container-fluid">
+      <div class="container">
+        <a href="./home.html" class="navbar-brand" id="title"><img src="./images/serenity_logo_new.png" alt="" width="80px"
+            height="80px">&nbsp;AutiMate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="container navbar-collapse collapse" id="navbar">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item mx-1">
+            <a href="./home.html#dash" class="nav-link" id="nav1"><i class="fa-solid fa-book"></i>&nbsp;Resources</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a href="./Schedule.html" class="nav-link" id="nav2"><i
+                class="fa-regular fa-calendar-days"></i>&nbsp;Schedule</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a href="./Games.html" class="nav-link" id="nav3"><i class="fa-solid fa-gamepad"></i>&nbsp;Games</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a href="#" class="nav-link" id="nav4"><i class="fa-solid fa-users-line"></i>&nbsp;Community</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a href="./home.html#contact" class="nav-link" id="nav4"><i class="fa-solid fa-phone"></i>&nbsp;Contact us</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dabba">
+    <label for="activityInput" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: bold; font-size:40px;text-shadow:2px 2px #868899;">Enter your tasks (comma-separated):</label>
+    <div class="input-container">
+      <input type="text" id="activityInput" placeholder="">
+      <button class="btn" style="background-color: #45b3a8;" onclick="generateActivities()">Generate Schedule</button>
+    </div>
+
+    <!-- Additional line before outputs -->
+    <div id="schedule-info"></div>
+
+    <div id="output"></div>
+
+    <!-- Additional line after outputs -->
+    <div id="schedule-info-end"></div>
+  </div>
+
+  <!-- Add Bootstrap JS and Popper.js scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function generateActivities() {
+      const inputField = document.getElementById('activityInput');
+      const outputDiv = document.getElementById('output');
+      const scheduleInfoDiv = document.getElementById('schedule-info');
+      const scheduleInfoEndDiv = document.getElementById('schedule-info-end');
+      const activities = inputField.value.split(',').map(activity => activity.trim());
+
+      if (activities.length === 0 || activities[0] === '') {
+        alert('Please enter at least one task.');
+        return;
+      }
+
+      // Additional line before outputs
+      scheduleInfoDiv.innerHTML = "<h4><b>Hey there! <br>This is your schedule for today:</b></h4>";
+
+      let outputHTML = '';
+
+      for (let i = 0; i < activities.length; i++) {
+        const outputContainer = document.createElement('div');
+        outputContainer.className = 'output-container';
+        const fillInTheBlank = `${activities[i]} is your ${i + 1}${getOrdinalSuffix(i + 1)} task!`;
+        outputContainer.innerHTML = fillInTheBlank;
+        outputDiv.appendChild(outputContainer);
+      }
+
+      // Additional line after outputs
+      scheduleInfoEndDiv.innerHTML = "<br><h4><b>Good luck finishing them!!<br> Have a great day :)</b></h4>";
+    }
+
+    function getOrdinalSuffix(number) {
+      const suffixes = ["st", "nd", "rd", "th"];
+      const v = number % 100;
+      return (v >= 11 && v <= 13) ? 'th' : suffixes[(v - 1) % 10] || 'th';
+    }
+  </script>
+</body>
+</html>
 
